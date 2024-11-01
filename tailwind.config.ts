@@ -11,11 +11,11 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        primary: "var(--primary)",
-        secondary: "var(--secondary)",
-        callout: "var(--callout)",
-        accent: "var(--accent)",
-        complement: "var(--complement)",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        callout: "var(--color-callout)",
+        accent: "var(--color-accent)",
+        complement: "var(--color-complement)",
       },
       fontFamily: {
         primary: ["var(--font-jaldi)", "serif"],
