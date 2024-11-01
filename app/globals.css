@@ -5,11 +5,19 @@
 :root {
   --background: #3F4D5C;
   --foreground: #ededed;
+
+  --color-primary: #3F4D5C;
+  --color-secondary: #222E3D;
+  --color-callout: #1AD9FF;
+  --color-accent: #99DFFF;
+  --color-complement: #464C54;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #222E3D;
+    --color-primary: #222E3D;
+    --color-secondary: #191C1F;
   }
 }
 
