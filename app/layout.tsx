@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Jaldi } from "next/font/google";
+import Navbar from "./(components)/layout/navbar";
 
 import "./globals.css";
 
@@ -31,8 +32,9 @@ export default function RootLayout({
       <body
         className={`antialiased ${jaldi.variable} ${inter.variable}`}
       >
-        <p className="font-primary bg-secondary">Testing primary</p>
-        <p className="font-secondary">Testing secondary</p>
+        <Navbar />
+        {/* <p className="font-primary bg-secondary">Testing primary</p>
+        <p className="font-secondary">Testing secondary</p> */}
         {children}
       </body>
     </html>
