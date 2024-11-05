@@ -6,7 +6,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const [videoClass, setVideoClass] = useState("top-0");
 
   return (
-    <div>
+    <>
       <video
         loop={false}
         autoPlay={true}
@@ -17,6 +17,6 @@ export default function Template({ children }: { children: React.ReactNode }) {
         <source src="/stinger.webm" type="video/webm" />
       </video>
       {children}
-    </div>
+    </>
   );
 }
