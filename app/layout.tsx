@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Jaldi } from "next/font/google";
 import Navbar from "./(components)/layout/navbar";
+import Footer from "./(components)/layout/footer";
 
 import "./globals.css";
 
@@ -30,6 +31,7 @@ export default function RootLayout(
       <body className={`antialiased ${jaldi.variable} ${inter.variable}`}>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
