@@ -1,7 +1,9 @@
+import Template from "./template";
+
 export default function Create() {
   return (
-    <div>
+    <Template>
       Create Page
-    </div>
+    </Template>
   )
 }
