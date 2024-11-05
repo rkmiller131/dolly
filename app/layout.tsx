@@ -5,37 +5,31 @@ import Navbar from "./(components)/layout/navbar";
 import "./globals.css";
 
 const jaldi = Jaldi({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-jaldi'
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-jaldi"
 });
 
 const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-inter'
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter"
 });
 
 export const metadata: Metadata = {
-  title: "Dolly AI",
+  title: "DOLLY AI",
   description: "DALL-E Midjourney Clone",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout(
+  {children}: Readonly<{ children: React.ReactNode }>
+) {
   return (
     <html lang="en">
-      <body
-        className={`antialiased ${jaldi.variable} ${inter.variable}`}
-      >
+      <body className={`antialiased ${jaldi.variable} ${inter.variable}`}>
         <Navbar />
-        {/* <p className="font-primary bg-secondary">Testing primary</p>
-        <p className="font-secondary">Testing secondary</p> */}
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );
