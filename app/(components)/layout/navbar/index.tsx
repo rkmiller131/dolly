@@ -1,7 +1,11 @@
+'use client'
 import Link from "next/link";
 import Button from "../../ui/buttons/Button";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
+  const color = pathname === "/create" ? "complement" : "callout";
   return (
     <nav className="w-full bg-secondary drop-shadow-md">
       <div className="container mx-auto py-4 flex justify-between">
@@ -11,7 +15,7 @@ export default function Navbar() {
         <Button
           text="Create"
           interaction={{ type: "navigate", href: "/create" }}
-          color="callout"
+          color={color}
         />
       </div>
     </nav>
