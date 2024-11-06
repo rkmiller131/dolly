@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function OpenAI () {
   return (
-    <div className="flex flex-col text-sm">
+    <div className="flex flex-col text-xs md:text-sm">
       <span className="flex gap-2">
         Powered by
         <Image
