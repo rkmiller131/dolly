@@ -28,6 +28,38 @@ const config: Config = {
         primary: ["var(--font-jaldi)", "serif"],
         secondary: ["var(--font-inter)", "sans-serif"],
       },
+      keyframes: {
+        'float-1': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-30px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'float-2': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-40px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'float-3': {
+          '0%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(10px)' },
+          '100%': { transform: 'translateY(0)' },
+        },
+        'fade-in': {
+          '0%': { transform: 'translateY(20px)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        'fade-out': {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(20px)', opacity: '0' },
+        },
+      },
+      animation: {
+        'float-1': 'float-1 5s ease-in-out infinite 0.7s',
+        'float-2': 'float-2 5s ease-in-out infinite',
+        'float-3': 'float-3 6s ease-in-out infinite',
+        'fade-in': 'fade-in 1s ease',
+        'fade-out': 'fade-out 1s ease',
+      },
     },
   },
   plugins: [],
