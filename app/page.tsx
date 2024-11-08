@@ -1,13 +1,14 @@
 'use client'
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import FormField from "./(components)/ui/forms/FormField";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(true);
   const dollyRef = useRef<HTMLDivElement>(null);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setIsVisible(!e.target.value);
     if (!e.target.value && dollyRef.current) {
       dollyRef.current.style.display = 'flex';
@@ -54,14 +55,10 @@ export default function Home() {
       </div>
       <section className="flex flex-col-reverse gap-4 md:flex-row md:gap-0 md:justify-between">
         <search className="flex flex-col gap-1">
-          <label htmlFor="search" className="font-primary text-accent text-sm md:text-lg">
-            Search
-          </label>
-          <input
-            type="text"
-            id="search"
+          <FormField
+            label="Search"
             placeholder="Search by tag or creator..."
-            className="text-primary px-3 border-2 border-accent rounded-md h-[40px] md:w-[400px] focus:outline-none"
+            variant="search"
             onChange={handleInputChange}
           />
         </search>

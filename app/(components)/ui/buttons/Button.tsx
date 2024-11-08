@@ -3,7 +3,7 @@ import Link from "next/link";
 import { tv } from "tailwind-variants";
 
 const buttonVariants = tv({
-  base: "inline-flex items-center justify-center transition-all duration-200 ease-in-out font-semibold drop-shadow-xl border",
+  base: "flex items-center justify-center transition-all duration-200 ease-in-out font-semibold drop-shadow-xl border",
   variants: {
     color: {
       callout: "bg-callout border-callout text-black hover:bg-[#7DE9FF]",
