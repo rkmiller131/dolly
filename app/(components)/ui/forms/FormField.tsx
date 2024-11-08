@@ -2,12 +2,12 @@ import { ChangeEvent } from "react";
 import { tv } from "tailwind-variants";
 
 const inputVariants = tv({
-  base: "text-primary px-3 py-2 border-2 border-accent rounded-lg focus:outline-none",
+  base: "text-primary px-3 py-1 border-2 border-accent rounded-lg focus:outline-none",
   variants: {
     variant: {
       default: "w-[175px]",
-      search: " py-1 md:w-[400px]",
-      area: "h-[125px] resize-none"
+      search: "md:w-[400px]",
+      area: "py-2 h-[125px] resize-none"
     }
   }
 });

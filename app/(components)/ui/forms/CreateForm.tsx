@@ -3,15 +3,15 @@ import FormField from "./FormField";
 
 export default function CreateForm() {
   return (
-    <div className="flex flex-col gap-3">
-      <FormField
-        label="Name"
-        placeholder="Creator tag"
-      />
-      <FormField
-        label="Prompt"
-        variant="area"
-      />
+    <form className="flex flex-col gap-3">
+        <FormField
+          label="Name"
+          placeholder="Creator tag"
+        />
+        <FormField
+          label="Prompt"
+          variant="area"
+        />
       <div className="self-end flex gap-4">
         <Button
           text="Surprise me"
@@ -22,10 +22,11 @@ export default function CreateForm() {
         <Button
           text="Generate"
           interaction={{ type: "navigate", href: "/create" }}
+          // interaction={{ type: "server-action", action: () => {} }}
           color="accent"
           size="slim"
         />
       </div>
-    </div>
+    </form>
   )
 }
