@@ -25,11 +25,11 @@ export default function Home() {
       <div className="hidden fixed z-2 lg:flex self-center min-h-[87dvh] mt-[-8%]">
         <div
           ref={dollyRef}
-          className={`relative ${isVisible ? 'animate-fade-in' : 'animate-fade-out pointer-events-none'}`}
+          className={`relative ${isVisible ? 'animate-fade-in' : 'animate-fade-out pointer-events-all'}`}
           onAnimationEnd={handleAnimationEnd}
         >
           <Image
-            src="/dolly.png"
+            src="/dolly.webp"
             height={1100}
             width={600}
             alt="Dolly Character"
@@ -37,14 +37,14 @@ export default function Home() {
             className="animate-float-3"
           />
           <Image
-            src="/paperfall1.png"
+            src="/paperfall1.webp"
             height={97}
             width={200}
             alt="Floating paper 1"
             className="absolute top-[20%] right-0 animate-float-1 delay-700"
           />
           <Image
-            src="/paperfall2.png"
+            src="/paperfall2.webp"
             height={97}
             width={200}
             alt="Floating paper 2"
