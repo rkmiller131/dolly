@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Jaldi } from "next/font/google";
-import Navbar from "./(components)/layout/navbar";
-import Footer from "./(components)/layout/footer";
+import { Footer, Navbar } from "./(components)/layout";
 
 import "./globals.css";
 

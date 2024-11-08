@@ -52,8 +52,8 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex flex-col-reverse gap-4 md:flex-row md:gap-0 md:justify-between">
-        <div className="flex flex-col gap-1">
+      <section className="flex flex-col-reverse gap-4 md:flex-row md:gap-0 md:justify-between">
+        <search className="flex flex-col gap-1">
           <label htmlFor="search" className="font-primary text-accent text-sm md:text-lg">
             Search
           </label>
@@ -64,11 +64,11 @@ export default function Home() {
             className="text-primary px-3 border-2 border-accent rounded-md h-[40px] md:w-[400px] focus:outline-none"
             onChange={handleInputChange}
           />
-        </div>
+        </search>
         <h2 className="text-2xl self-end md:text-4xl md:self-start">
           AI Image Generator
         </h2>
-      </div>
+      </section>
       <div className="grid lg:h-[68vh] overflow-hidden border border-blue-500">
         Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ooooooooooooooooo oo0000000000000000000000000000000000
       </div>
