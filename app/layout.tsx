@@ -27,7 +27,7 @@ export default function RootLayout(
 ) {
   return (
     <html lang="en">
-      <body className={`antialiased ${jaldi.variable} ${inter.variable} overflow-hidden`}>
+      <body className={`antialiased ${jaldi.variable} ${inter.variable} overflow-x-hidden`}>
         <Navbar />
         <main className="container mx-auto px-4 py-4 md:px-0">
           {children}

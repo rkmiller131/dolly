@@ -30,7 +30,7 @@ export default function FormField({
 }: FormFieldProps) {
   const inputClasses = inputVariants({ variant });
   return variant === "area" ? (
-    <>
+    <div className="flex flex-col">
       <label
         className="font-primary text-accent text-sm md:text-lg"
         htmlFor={label.toLowerCase()}
@@ -43,10 +43,11 @@ export default function FormField({
         className={inputClasses}
         placeholder={placeholder}
         onChange={onChange}
+        required
       />
-    </>
+    </div>
   ) : (
-    <>
+    <div className="flex flex-col">
       <label
         className="font-primary text-accent text-sm md:text-lg"
         htmlFor={label.toLowerCase()}
@@ -60,7 +61,8 @@ export default function FormField({
         className={inputClasses}
         placeholder={placeholder}
         onChange={onChange}
+        required
       />
-    </>
+    </div>
   )
 }

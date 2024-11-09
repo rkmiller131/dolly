@@ -1,17 +1,22 @@
+"use client"
 import Button from "../buttons/Button";
+import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
 
-export default function CreateForm() {
+export default function CreateForm({ changeAspectRatio }) {
   return (
     <form className="flex flex-col gap-3">
+      <div className="flex items-end justify-between">
         <FormField
           label="Name"
           placeholder="Creator tag"
         />
-        <FormField
-          label="Prompt"
-          variant="area"
-        />
+        <SizeToggle onChange={changeAspectRatio}/>
+      </div>
+      <FormField
+        label="Prompt"
+        variant="area"
+      />
       <div className="self-end flex gap-4">
         <Button
           text="Surprise me"
