@@ -1,3 +1,8 @@
+export function getRandomPrompt() {
+  const randomIndex = Math.floor(Math.random() * prompts.length);
+  return prompts[randomIndex];
+}
+
 export const prompts = [
   "A whimsical treehouse in a bioluminescent forest",
   "A steampunk-inspired coffee shop floating in the clouds early morning",

@@ -26,7 +26,7 @@ export default function IconButton ({ href, className, iconPath, text }: IconBut
         <Image
           src={iconPath}
           height={25}
-          width={25}
+          width={27}
           alt={`Clickable ${text ? text : 'Icon'}`}
         />
         {text && (

@@ -3,6 +3,9 @@
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
 import FormField from "./(components)/ui/forms/FormField";
+import dollyImg from "../public/dolly.webp";
+import paperfall1 from "../public/paperfall1.webp";
+import paperfall2 from "../public/paperfall2.webp";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(true);
@@ -30,22 +33,22 @@ export default function Home() {
           onAnimationEnd={handleAnimationEnd}
         >
           <Image
-            src="/dolly.webp"
+            src={dollyImg}
             height={1100}
             width={600}
             alt="Dolly Character"
-            priority={true}
+            priority
             className="animate-float-3"
           />
           <Image
-            src="/paperfall1.webp"
+            src={paperfall1}
             height={97}
             width={200}
             alt="Floating paper 1"
             className="absolute top-[20%] right-0 animate-float-1 delay-700"
           />
           <Image
-            src="/paperfall2.webp"
+            src={paperfall2}
             height={97}
             width={200}
             alt="Floating paper 2"

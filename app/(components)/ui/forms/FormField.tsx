@@ -20,13 +20,15 @@ interface FormFieldProps {
   variant?: VariantOptions;
   placeholder?: string;
   onChange?: (e: ChangeEvent<InputElement>) => void;
+  value?: string;
 }
 
 export default function FormField({
   label,
   variant = "default",
   placeholder,
-  onChange
+  onChange,
+  value
 }: FormFieldProps) {
   const inputClasses = inputVariants({ variant });
   return variant === "area" ? (
@@ -43,6 +45,7 @@ export default function FormField({
         className={inputClasses}
         placeholder={placeholder}
         onChange={onChange}
+        value={value}
         required
       />
     </div>

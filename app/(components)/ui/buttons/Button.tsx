@@ -98,7 +98,10 @@ export default function Button({
       case 'action':
         return (
           <button
-            onClick={interaction.onClick}
+            onClick={(e) => {
+              e.preventDefault();
+              interaction.onClick?.();
+            }}
             className={buttonClasses}
             disabled={disabled}
           >

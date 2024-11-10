@@ -1,7 +1,6 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { prompts } from "./prompts";
 
 export type AspectRatio = "1024x1024" | "1920x1080";
 
@@ -37,9 +36,4 @@ export async function generateImage(formData: FormData) {
 
   // Return the data (or generated image URL in production)
   return data;
-}
-
-export function getRandomPrompt() {
-  const randomIndex = Math.floor(Math.random() * prompts.length);
-  return prompts[randomIndex];
 }

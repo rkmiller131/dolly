@@ -7,8 +7,8 @@ export default function OpenAI () {
         Powered by
         <Image
           src="/openai-logo.svg"
-          height={80}
-          width={80}
+          height={24}
+          width={88}
           alt="OpenAI Logo"
         />
       </span>

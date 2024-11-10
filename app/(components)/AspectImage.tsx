@@ -19,7 +19,7 @@ export default function AspectImage({
     height: 500
   });
   const [imageToShow, setImageToShow] = useState("/no-image1-1.webp");
-  const [generating, setGenerating] = useState(true);
+  const [generatingImg, setGeneratingImg] = useState(false);
 
   useEffect(() => {
     if (aspectRatio === "1920x1080") {
@@ -43,7 +43,7 @@ export default function AspectImage({
         width={dimensions.width}
         className="object-contain"
       />
-      {generating &&
+      {generatingImg &&
         <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)]">
           <LoadingSpinner />
         </div>

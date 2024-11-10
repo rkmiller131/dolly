@@ -1,14 +1,28 @@
 "use client"
-import { getRandomPrompt } from "@/utils/actions";
+
+import { getRandomPrompt } from "@/utils/prompts";
 import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
+import React, { useState } from "react";
+import { generateImage } from "@/utils/actions";
 
 interface CreateFormProps {
   changeAspectRatio: (newRatio: "1:1" | "16:9") => void;
 }
 
 export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
+  const [promptValue, setPromptValue] = useState('');
+
+  const handleSurpriseMe = () => {
+    const prompt = getRandomPrompt();
+    setPromptValue(prompt);
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setPromptValue(e.target.value);
+  };
+
   return (
     <form className="flex flex-col gap-5">
       <div className="flex items-end justify-between">
@@ -21,18 +35,19 @@ export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
       <FormField
         label="Prompt"
         variant="area"
+        onChange={handleInputChange}
+        value={promptValue}
       />
       <div className="self-end flex gap-4">
-        {/* <Button
+        <Button
           text="Surprise me"
-          interaction={{ type: "server-action", action: getRandomPrompt }}
+          interaction={{ type: "action", onClick: handleSurpriseMe }}
           color="complement"
           size="slim"
-        /> */}
+        />
         <Button
           text="Generate"
-          interaction={{ type: "navigate", href: "/create" }}
-          // interaction={{ type: "server-action", action: () => {} }}
+          interaction={{ type: "server-action", action: generateImage }}
           color="accent"
           size="slim"
         />
