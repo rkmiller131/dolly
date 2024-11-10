@@ -1,4 +1,5 @@
 "use client"
+import { getRandomPrompt } from "@/utils/actions";
 import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
@@ -22,12 +23,12 @@ export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
         variant="area"
       />
       <div className="self-end flex gap-4">
-        <Button
+        {/* <Button
           text="Surprise me"
-          interaction={{ type: "navigate", href: "/create" }}
+          interaction={{ type: "server-action", action: getRandomPrompt }}
           color="complement"
           size="slim"
-        />
+        /> */}
         <Button
           text="Generate"
           interaction={{ type: "navigate", href: "/create" }}

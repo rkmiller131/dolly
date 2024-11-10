@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AspectRatio } from "@/utils/actions";
+import LoadingSpinner from "./ui/LoadingSpinner";
 
 interface AspectImageProps {
   aspectRatio: AspectRatio;
@@ -18,6 +19,7 @@ export default function AspectImage({
     height: 500
   });
   const [imageToShow, setImageToShow] = useState("/no-image1-1.webp");
+  const [generating, setGenerating] = useState(true);
 
   useEffect(() => {
     if (aspectRatio === "1920x1080") {
@@ -41,6 +43,11 @@ export default function AspectImage({
         width={dimensions.width}
         className="object-contain"
       />
+      {generating &&
+        <div className="absolute inset-0 z-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)]">
+          <LoadingSpinner />
+        </div>
+      }
     </div>
   );
 }
