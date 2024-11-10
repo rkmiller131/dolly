@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AspectRatio } from "@/utils/actions";
-import LoadingSpinner from "./ui/LoadingSpinner";
+import LoadingSpinner from "../ui/LoadingSpinner";
 
 interface AspectImageProps {
   aspectRatio: AspectRatio;
