@@ -6,6 +6,8 @@ import Template from "./template";
 import Image from "next/image";
 import { AspectRatio } from "@/utils/actions";
 import AspectImage from "../(components)/AspectImage";
+import Button from "../(components)/ui/buttons/Button";
+import IconButton from "../(components)/ui/buttons/IconButton";
 
 export default function Create() {
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1080x1080" as AspectRatio);
@@ -34,15 +36,22 @@ export default function Create() {
           </div>
           <CreateForm changeAspectRatio={changeAspectRatio}/>
         </section>
-        <AspectImage
-          aspectRatio={aspectRatio}
-        />
-        {/* <Image
-          src="/no-image1-1.webp"
-          alt="No Image Generated Yet"
-          height={500}
-          width={500}
-        /> */}
+        <div className="flex flex-col items-center gap-5 mb-20 lg:mb-0">
+          <AspectImage
+            aspectRatio={aspectRatio}
+          />
+          <div className="flex flex-col items-center gap-4 md:flex-row">
+            <IconButton
+              href=""
+              iconPath="/download-icon.svg"
+              text="Download"
+            />
+            <Button
+              text="Share with the community"
+              interaction={{ type: "action", onClick: () => {} }}
+            />
+          </div>
+        </div>
       </div>
     </Template>
   )

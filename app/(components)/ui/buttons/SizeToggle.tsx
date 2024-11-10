@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 interface SizeToggleProps {
-  onChange: (ratio: '1:1' | '16:9') => void;
+  onChange: (ratio: "1:1" | "16:9") => void;
 }
 
 export default function SizeToggle({ onChange }: SizeToggleProps) {

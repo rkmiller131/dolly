@@ -1,8 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 
-// TODO - flagging because not currently used
-
 interface IconButtonProps {
   href: string;
   className?: string;
@@ -11,11 +9,16 @@ interface IconButtonProps {
 }
 
 export default function IconButton ({ href, className, iconPath, text }: IconButtonProps) {
-  console.log(typeof iconPath)
   return (
     <Link
       href={href}
-      className={className}
+      className={`
+        text-accent text-lg
+        border border-transparent rounded-full
+        px-5 py-2
+        hover:border-accent
+        ${className}`
+      }
       target="_blank"
       rel="noopener noreferrer"
     >
