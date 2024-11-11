@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import CreateForm from "../(components)/ui/forms/CreateForm";
-import Template from "./template";
 import { AspectRatio } from "@/utils/actions";
 import AspectImage from "../(components)/ui/AspectImage";
 import Button from "../(components)/ui/buttons/Button";
@@ -16,7 +15,7 @@ export default function Create() {
     setAspectRatio(ratio);
   }
   return (
-    <Template>
+    <>
       <div className={`
         absolute z-[-1] left-0 top-[10%]
         w-full h-full
@@ -48,6 +47,6 @@ export default function Create() {
           </div>
         </div>
       </div>
-    </Template>
+    </>
   )
 }
