@@ -29,7 +29,7 @@ export default function RootLayout(
     <html lang="en">
       <body className={`antialiased ${jaldi.variable} ${inter.variable} overflow-x-hidden lg:overflow-y-hidden`}>
         <Navbar />
-        <main className="container mx-auto px-4 py-4 lg:px-0">
+        <main className="container mx-auto px-5 py-5 lg:px-0">
           {children}
         </main>
         <Footer />

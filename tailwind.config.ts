@@ -28,6 +28,9 @@ const config: Config = {
         primary: ["var(--font-jaldi)", "serif"],
         secondary: ["var(--font-inter)", "sans-serif"],
       },
+      backgroundImage: {
+        "paint-palette": "url('/paint-palette.svg')",
+      },
       keyframes: {
         'float-1': {
           '0%': { transform: 'translateY(0)' },

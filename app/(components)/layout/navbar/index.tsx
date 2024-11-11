@@ -8,7 +8,7 @@ export default function Navbar() {
   const color = pathname === "/create" ? "complement" : "callout";
   return (
     <nav className="w-full bg-secondary drop-shadow-md">
-      <div className="container px-4 mx-auto py-4 flex justify-between items-center lg:px-0">
+      <div className="container px-5 mx-auto py-5 flex justify-between items-center lg:px-0">
         <Link href="/" className="text-2xl font-semi-bold hover:text-callout transition-colors duration-200">
           DOLLY
         </Link>
