@@ -5,10 +5,10 @@ import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
 import React, { useState } from "react";
-import { generateImage } from "@/utils/actions";
+import { AspectRatio } from "@/utils/actions";
 
 interface CreateFormProps {
-  changeAspectRatio: (newRatio: "1:1" | "16:9") => void;
+  changeAspectRatio: (newRatio: AspectRatio) => void;
 }
 
 export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
@@ -47,7 +47,8 @@ export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
         />
         <Button
           text="Generate"
-          interaction={{ type: "server-action", action: generateImage }}
+          // interaction={{ type: "server-action", action: generateImage }}
+          interaction={{ type: "action", onClick: () => {} }}
           color="accent"
           size="slim"
         />

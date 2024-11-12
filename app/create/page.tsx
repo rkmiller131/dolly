@@ -8,11 +8,25 @@ import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
 
+type FormDetails = {
+  name: string;
+  prompt: string;
+  image: string;
+  aspectRatio: AspectRatio;
+}
+
 export default function Create() {
-  const [aspectRatio, setAspectRatio] = useState<AspectRatio>("1080x1080" as AspectRatio);
-  const changeAspectRatio = (newRatio: "1:1" | "16:9") => {
-    const ratio = (newRatio === "1:1" ? "1080x1080" : "1920x1080") as AspectRatio;
-    setAspectRatio(ratio);
+  const [formDetails, setFormDetails] = useState<FormDetails>({
+    name: "",
+    prompt: "",
+    image: "",
+    aspectRatio: "1080x1080" as AspectRatio
+  });
+  const changeAspectRatio = (newRatio: AspectRatio) => {
+    setFormDetails({
+      ...formDetails,
+      aspectRatio: newRatio
+    });
   }
   return (
     <>
@@ -22,7 +36,7 @@ export default function Create() {
         bg-paint-palette bg-cover bg-center bg-no-repeat
         lg:top-12 lg:w-[75%]`}
       />
-      <div className="flex flex-col gap-20 lg:flex-row lg:gap-20 justify-between items-center min-h-[78.5dvh]">
+      <div className="flex flex-col gap-20 justify-between items-center min-h-[78.5dvh] lg:flex-row lg:gap-20">
         <section className="flex flex-col gap-10">
           <HeaderSubtitle
             header="Create"
@@ -32,7 +46,7 @@ export default function Create() {
         </section>
         <div className="flex flex-col items-center gap-5 mb-20 lg:mb-0">
           <AspectImage
-            aspectRatio={aspectRatio}
+            aspectRatio={formDetails.aspectRatio}
           />
           <div className="flex flex-col items-center gap-4 md:flex-row">
             <IconButton

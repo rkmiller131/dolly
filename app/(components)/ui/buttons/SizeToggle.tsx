@@ -1,15 +1,16 @@
 "use client";
 
+import { AspectRatio } from "@/utils/actions";
 import { useState } from "react";
 
 interface SizeToggleProps {
-  onChange: (ratio: "1:1" | "16:9") => void;
+  onChange: (ratio: AspectRatio) => void;
 }
 
 export default function SizeToggle({ onChange }: SizeToggleProps) {
-  const [selectedSize, setSelectedSize] = useState<'1:1' | '16:9'>("1:1");
+  const [selectedSize, setSelectedSize] = useState<AspectRatio>("1080x1080" as AspectRatio);
 
-  const handleChange = (newSize: '1:1' | '16:9') => {
+  const handleChange = (newSize: AspectRatio) => {
     setSelectedSize(newSize);
     onChange(newSize);
   };
@@ -19,15 +20,15 @@ export default function SizeToggle({ onChange }: SizeToggleProps) {
       <div className="flex">
         <input
           type="radio"
-          id="1:1"
+          id="1080x1080"
           name="aspectRatio"
-          value="1:1"
-          checked={selectedSize === '1:1'}
-          onChange={(e) => handleChange(e.target.value as '1:1' | '16:9')}
+          value="1080x1080"
+          checked={selectedSize === "1080x1080" as AspectRatio}
+          onChange={(e) => handleChange(e.target.value as AspectRatio)}
           className="appearance-none peer/square"
         />
         <label
-          htmlFor="1:1"
+          htmlFor="1080x1080"
           className={`
             px-4 py-2 rounded-md text-sm font-medium cursor-pointer
             shadow-[inset_3px_4px_5px_rgba(0,0,0,0.6)]
@@ -41,15 +42,15 @@ export default function SizeToggle({ onChange }: SizeToggleProps) {
 
         <input
           type="radio"
-          id="16:9"
+          id="1920x1080"
           name="aspectRatio"
-          value="16:9"
-          checked={selectedSize === '16:9'}
-          onChange={(e) => handleChange(e.target.value as '1:1' | '16:9')}
+          value="1920x1080"
+          checked={selectedSize === "1920x1080"}
+          onChange={(e) => handleChange(e.target.value as AspectRatio)}
           className="appearance-none peer/wide"
         />
         <label
-          htmlFor="16:9"
+          htmlFor="1920x1080"
           className={`
             px-3 py-2 rounded-md text-sm font-medium cursor-pointer
             shadow-[inset_3px_4px_5px_rgba(0,0,0,0.6)]
