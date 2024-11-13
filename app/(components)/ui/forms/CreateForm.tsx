@@ -1,42 +1,60 @@
-"use client"
-
 import { getRandomPrompt } from "@/utils/prompts";
 import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
-import React, { useState } from "react";
+import { FormDetails } from "@/types/global";
 import { AspectRatio } from "@/utils/actions";
 
 interface CreateFormProps {
-  changeAspectRatio: (newRatio: AspectRatio) => void;
+  formDetails: FormDetails;
+  onFormChange: (newDetails: FormDetails) => void;
+  onGenerate: () => void;
 }
 
-export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
-  const [promptValue, setPromptValue] = useState('');
-
+export default function CreateForm({ formDetails, onFormChange, onGenerate }: CreateFormProps) {
   const handleSurpriseMe = () => {
-    const prompt = getRandomPrompt();
-    setPromptValue(prompt);
-  }
+    const randomPrompt = getRandomPrompt();
+    onFormChange({
+      ...formDetails,
+      prompt: randomPrompt
+    });
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setPromptValue(e.target.value);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    onFormChange({
+      ...formDetails,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  const handleAspectRatioChange = (newAspectRatio: AspectRatio) => {
+    onFormChange({
+      ...formDetails,
+      aspectRatio: newAspectRatio
+    });
   };
 
   return (
-    <form className="flex flex-col gap-5">
+    <form className="flex flex-col gap-5" onSubmit={(e) => e.preventDefault()}>
       <div className="flex items-end justify-between">
         <FormField
           label="Name"
           placeholder="Creator tag"
+          value={formDetails.name}
+          onChange={handleInputChange}
         />
-        <SizeToggle onChange={changeAspectRatio}/>
+        <SizeToggle
+          selectedSize={formDetails.aspectRatio}
+          onAspectChange={handleAspectRatioChange}
+        />
       </div>
       <FormField
         label="Prompt"
         variant="area"
         onChange={handleInputChange}
-        value={promptValue}
+        value={formDetails.prompt}
       />
       <div className="self-end flex gap-4">
         <Button
@@ -48,7 +66,7 @@ export default function CreateForm({ changeAspectRatio }: CreateFormProps) {
         <Button
           text="Generate"
           // interaction={{ type: "server-action", action: generateImage }}
-          interaction={{ type: "action", onClick: () => {} }}
+          interaction={{ type: "action", onClick: onGenerate }}
           color="accent"
           size="slim"
         />

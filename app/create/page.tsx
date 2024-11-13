@@ -1,19 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import CreateForm from "../(components)/ui/forms/CreateForm";
 import { AspectRatio } from "@/utils/actions";
 import AspectImage from "../(components)/ui/AspectImage";
 import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
-
-type FormDetails = {
-  name: string;
-  prompt: string;
-  image: string;
-  aspectRatio: AspectRatio;
-}
+import { FormDetails } from "@/types/global";
 
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
@@ -22,12 +16,38 @@ export default function Create() {
     image: "",
     aspectRatio: "1080x1080" as AspectRatio
   });
-  const changeAspectRatio = (newRatio: AspectRatio) => {
-    setFormDetails({
-      ...formDetails,
-      aspectRatio: newRatio
-    });
-  }
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleFormChange = (newDetails: FormDetails) => {
+    setFormDetails(newDetails);
+  };
+
+  const generateImage = async () => {
+    if (!formDetails.prompt) return;
+
+    setIsGenerating(true);
+    try {
+      // Call OpenAI API
+      console.log('Generating image with:', formDetails);
+      // Update formDetails.image with the generated image URL
+    } catch (error) {
+      console.error('Error generating image:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const submitToCommunity = async () => {
+    if (!formDetails.image || !formDetails.name) return;
+
+    try {
+      // Call API to save to db
+      console.log('Submitting to community:', formDetails);
+    } catch (error) {
+      console.error('Error submitting to community:', error);
+    }
+  };
+
   return (
     <>
       <div className={`
@@ -42,11 +62,16 @@ export default function Create() {
             header="Create"
             subtitle="Generate an imaginative image through DALL•E AI and download or share it with the community."
           />
-          <CreateForm changeAspectRatio={changeAspectRatio}/>
+          <CreateForm
+            formDetails={formDetails}
+            onFormChange={handleFormChange}
+            onGenerate={generateImage}
+          />
         </section>
         <div className="flex flex-col items-center gap-5 mb-20 lg:mb-0">
           <AspectImage
             aspectRatio={formDetails.aspectRatio}
+            isGenerating={isGenerating}
           />
           <div className="flex flex-col items-center gap-4 md:flex-row">
             <IconButton
@@ -56,7 +81,7 @@ export default function Create() {
             />
             <Button
               text="Share with the community"
-              interaction={{ type: "action", onClick: () => {} }}
+              interaction={{ type: "action", onClick: submitToCommunity }}
             />
           </div>
         </div>

@@ -1,18 +1,13 @@
-"use client";
-
 import { AspectRatio } from "@/utils/actions";
-import { useState } from "react";
 
 interface SizeToggleProps {
-  onChange: (ratio: AspectRatio) => void;
+  selectedSize: AspectRatio;
+  onAspectChange: (size: AspectRatio) => void;
 }
 
-export default function SizeToggle({ onChange }: SizeToggleProps) {
-  const [selectedSize, setSelectedSize] = useState<AspectRatio>("1080x1080" as AspectRatio);
-
-  const handleChange = (newSize: AspectRatio) => {
-    setSelectedSize(newSize);
-    onChange(newSize);
+export default function SizeToggle({ selectedSize, onAspectChange }: SizeToggleProps) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onAspectChange(e.target.value as AspectRatio);
   };
 
   return (
@@ -24,7 +19,7 @@ export default function SizeToggle({ onChange }: SizeToggleProps) {
           name="aspectRatio"
           value="1080x1080"
           checked={selectedSize === "1080x1080" as AspectRatio}
-          onChange={(e) => handleChange(e.target.value as AspectRatio)}
+          onChange={handleChange}
           className="appearance-none peer/square"
         />
         <label
@@ -46,7 +41,7 @@ export default function SizeToggle({ onChange }: SizeToggleProps) {
           name="aspectRatio"
           value="1920x1080"
           checked={selectedSize === "1920x1080"}
-          onChange={(e) => handleChange(e.target.value as AspectRatio)}
+          onChange={handleChange}
           className="appearance-none peer/wide"
         />
         <label
