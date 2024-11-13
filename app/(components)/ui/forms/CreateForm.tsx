@@ -2,16 +2,17 @@ import { getRandomPrompt } from "@/utils/prompts";
 import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
-import { FormDetails } from "@/types/global";
+import { FormDetails, FormErrors } from "@/types/global";
 import { AspectRatio } from "@/utils/actions";
 
 interface CreateFormProps {
   formDetails: FormDetails;
+  errors: FormErrors;
   onFormChange: (newDetails: FormDetails) => void;
   onGenerate: () => void;
 }
 
-export default function CreateForm({ formDetails, onFormChange, onGenerate }: CreateFormProps) {
+export default function CreateForm({ formDetails, errors, onFormChange, onGenerate }: CreateFormProps) {
   const handleSurpriseMe = () => {
     const randomPrompt = getRandomPrompt();
     onFormChange({
@@ -44,6 +45,7 @@ export default function CreateForm({ formDetails, onFormChange, onGenerate }: Cr
           placeholder="Creator tag"
           value={formDetails.name}
           onChange={handleInputChange}
+          error={errors.name}
         />
         <SizeToggle
           selectedSize={formDetails.aspectRatio}
@@ -55,6 +57,7 @@ export default function CreateForm({ formDetails, onFormChange, onGenerate }: Cr
         variant="area"
         onChange={handleInputChange}
         value={formDetails.prompt}
+        error={errors.prompt}
       />
       <div className="self-end flex gap-4">
         <Button

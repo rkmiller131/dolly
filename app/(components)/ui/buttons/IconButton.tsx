@@ -16,6 +16,7 @@ export default function IconButton ({ href, className, iconPath, text }: IconBut
         text-accent text-lg
         border border-transparent rounded-full
         px-5 py-2
+        transition-border duration-300 ease-in-out
         hover:border-accent
         ${className}`
       }

@@ -12,3 +12,8 @@ export type FormDetails = {
   image: string;
   aspectRatio: AspectRatio;
 }
+
+export type FormErrors = {
+  name?: string;
+  prompt?: string;
+}

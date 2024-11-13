@@ -21,6 +21,7 @@ interface FormFieldProps {
   placeholder?: string;
   onChange?: (e: ChangeEvent<InputElement>) => void;
   value?: string;
+  error?: string;
 }
 
 export default function FormField({
@@ -28,8 +29,11 @@ export default function FormField({
   variant = "default",
   placeholder,
   onChange,
-  value
+  value,
+  error
 }: FormFieldProps) {
+  const errorBorder = error ? "border-red-400" : "";
+  console.log('error border ', errorBorder)
   const inputClasses = inputVariants({ variant });
   return variant === "area" ? (
     <div className="flex flex-col">
@@ -42,7 +46,7 @@ export default function FormField({
       <textarea
         id={label.toLowerCase()}
         name={label.toLowerCase()}
-        className={inputClasses}
+        className={`${inputClasses} ${errorBorder}`}
         placeholder={placeholder}
         onChange={onChange}
         value={value}
@@ -61,7 +65,7 @@ export default function FormField({
         type="text"
         id={label.toLowerCase()}
         name={label.toLowerCase()}
-        className={inputClasses}
+        className={`${inputClasses} ${errorBorder}`}
         placeholder={placeholder}
         onChange={onChange}
         required

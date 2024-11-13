@@ -7,7 +7,7 @@ import AspectImage from "../(components)/ui/AspectImage";
 import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
-import { FormDetails } from "@/types/global";
+import { FormDetails, FormErrors } from "@/types/global";
 
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
@@ -16,14 +16,46 @@ export default function Create() {
     image: "",
     aspectRatio: "1080x1080" as AspectRatio
   });
+  const [errors, setErrors] = useState<FormErrors>({});
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleFormChange = (newDetails: FormDetails) => {
+    // when user starts typing, clear the errors
+    const clearedErrors = { ...errors };
+    if (newDetails.prompt !== formDetails.prompt) {
+      delete clearedErrors.prompt;
+    }
+    if (newDetails.name !== formDetails.name) {
+      delete clearedErrors.name;
+    }
+    setErrors(clearedErrors);
     setFormDetails(newDetails);
   };
 
+  const validateGenerate = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formDetails.prompt.trim()) {
+      newErrors.prompt = "Please enter a prompt";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const validateShare = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formDetails.name.trim()) {
+      newErrors.name = "Please enter your name first";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const generateImage = async () => {
-    if (!formDetails.prompt) return;
+    if (!validateGenerate()) return;
 
     setIsGenerating(true);
     try {
@@ -38,7 +70,8 @@ export default function Create() {
   };
 
   const submitToCommunity = async () => {
-    if (!formDetails.image || !formDetails.name) return;
+    // if (!formDetails.image || !validateShare()) return;
+    if (!validateShare()) return;
 
     try {
       // Call API to save to db
@@ -64,6 +97,7 @@ export default function Create() {
           />
           <CreateForm
             formDetails={formDetails}
+            errors={errors}
             onFormChange={handleFormChange}
             onGenerate={generateImage}
           />
@@ -80,8 +114,10 @@ export default function Create() {
               text="Download"
             />
             <Button
-              text="Share with the community"
+              text={errors.name ? errors.name : "Share with the community"}
               interaction={{ type: "action", onClick: submitToCommunity }}
+              className={errors.name && "bg-red-400 border-white text-white"}
+              disabled={errors.name ? true : false}
             />
           </div>
         </div>
