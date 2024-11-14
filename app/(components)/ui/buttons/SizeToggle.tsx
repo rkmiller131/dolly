@@ -1,4 +1,4 @@
-import { AspectRatio } from "@/utils/actions";
+import { AspectRatio } from "@/types/global";
 
 interface SizeToggleProps {
   selectedSize: AspectRatio;
@@ -15,15 +15,15 @@ export default function SizeToggle({ selectedSize, onAspectChange }: SizeToggleP
       <div className="flex">
         <input
           type="radio"
-          id="1080x1080"
+          id="1024x1024"
           name="aspectRatio"
-          value="1080x1080"
-          checked={selectedSize === "1080x1080" as AspectRatio}
+          value="1024x1024"
+          checked={selectedSize === "1024x1024" as AspectRatio}
           onChange={handleChange}
           className="appearance-none peer/square"
         />
         <label
-          htmlFor="1080x1080"
+          htmlFor="1024x1024"
           className={`
             px-4 py-2 rounded-md text-sm font-medium cursor-pointer
             shadow-[inset_3px_4px_5px_rgba(0,0,0,0.6)]
@@ -37,15 +37,15 @@ export default function SizeToggle({ selectedSize, onAspectChange }: SizeToggleP
 
         <input
           type="radio"
-          id="1920x1080"
+          id="1792x1024"
           name="aspectRatio"
-          value="1920x1080"
-          checked={selectedSize === "1920x1080"}
+          value="1792x1024"
+          checked={selectedSize === "1792x1024"}
           onChange={handleChange}
           className="appearance-none peer/wide"
         />
         <label
-          htmlFor="1920x1080"
+          htmlFor="1792x1024"
           className={`
             px-3 py-2 rounded-md text-sm font-medium cursor-pointer
             shadow-[inset_3px_4px_5px_rgba(0,0,0,0.6)]

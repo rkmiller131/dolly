@@ -1,8 +1,7 @@
 "use server";
 
+import { AspectRatio } from "@/types/global";
 import { revalidatePath } from "next/cache";
-
-export type AspectRatio = "1024x1024" | "1920x1080";
 
 interface GenerateImageData {
   name: string;

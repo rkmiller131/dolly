@@ -2,8 +2,7 @@ import { getRandomPrompt } from "@/utils/prompts";
 import Button from "../buttons/Button";
 import SizeToggle from "../buttons/SizeToggle";
 import FormField from "./FormField";
-import { FormDetails, FormErrors } from "@/types/global";
-import { AspectRatio } from "@/utils/actions";
+import { AspectRatio, FormDetails, FormErrors } from "@/types/global";
 
 interface CreateFormProps {
   formDetails: FormDetails;

@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { AspectRatio } from "@/utils/actions";
 import LoadingSpinner from "../ui/LoadingSpinner";
+import { AspectRatio } from "@/types/global";
 
 interface AspectImageProps {
   aspectRatio: AspectRatio;
@@ -23,7 +23,7 @@ export default function AspectImage({
   const [imageToShow, setImageToShow] = useState("/no-image1-1.webp");
 
   useEffect(() => {
-    if (aspectRatio === "1920x1080") {
+    if (aspectRatio === "1792x1024") {
       setDimensions({ width: 640, height: 360 });
       setImageToShow("/no-image16-9.webp");
     } else {

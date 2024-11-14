@@ -2,19 +2,18 @@
 
 import React, { useState } from "react";
 import CreateForm from "../(components)/ui/forms/CreateForm";
-import { AspectRatio } from "@/utils/actions";
 import AspectImage from "../(components)/ui/AspectImage";
 import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
-import { FormDetails, FormErrors } from "@/types/global";
+import { AspectRatio, FormDetails, FormErrors } from "@/types/global";
 
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
     name: "",
     prompt: "",
     image: "",
-    aspectRatio: "1080x1080" as AspectRatio
+    aspectRatio: "1024x1024" as AspectRatio
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isGenerating, setIsGenerating] = useState(false);
@@ -70,8 +69,7 @@ export default function Create() {
   };
 
   const submitToCommunity = async () => {
-    // if (!formDetails.image || !validateShare()) return;
-    if (!validateShare()) return;
+    if (!formDetails.image || !validateShare()) return;
 
     try {
       // Call API to save to db
@@ -107,19 +105,21 @@ export default function Create() {
             aspectRatio={formDetails.aspectRatio}
             isGenerating={isGenerating}
           />
-          <div className="flex flex-col items-center gap-4 md:flex-row">
-            <IconButton
-              href=""
-              iconPath="/download-icon.svg"
-              text="Download"
-            />
-            <Button
-              text={errors.name ? errors.name : "Share with the community"}
-              interaction={{ type: "action", onClick: submitToCommunity }}
-              className={errors.name && "bg-red-400 border-white text-white"}
-              disabled={errors.name ? true : false}
-            />
-          </div>
+          {formDetails.image && (
+            <div className="flex flex-col items-center gap-4 md:flex-row">
+              <IconButton
+                href=""
+                iconPath="/download-icon.svg"
+                text="Download"
+              />
+              <Button
+                text={errors.name ? errors.name : "Share with the community"}
+                interaction={{ type: "action", onClick: submitToCommunity }}
+                className={errors.name && "bg-red-400 border-white text-white"}
+                disabled={errors.name ? true : false}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>
