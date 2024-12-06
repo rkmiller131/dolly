@@ -7,6 +7,7 @@ import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
 import { AspectRatio, FormDetails, FormErrors } from "@/types/global";
+import { generateImage } from "@/utils/actions";
 
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
@@ -19,8 +20,8 @@ export default function Create() {
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleFormChange = (newDetails: FormDetails) => {
-    // when user starts typing, clear the errors
-    const clearedErrors = { ...errors };
+    // when user starts typing, clear the errors by deleting from err obj
+    const clearedErrors: FormErrors = { ...errors };
     if (newDetails.prompt !== formDetails.prompt) {
       delete clearedErrors.prompt;
     }
@@ -29,17 +30,6 @@ export default function Create() {
     }
     setErrors(clearedErrors);
     setFormDetails(newDetails);
-  };
-
-  const validateGenerate = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formDetails.prompt.trim()) {
-      newErrors.prompt = "Please enter a prompt";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
   };
 
   const validateShare = (): boolean => {
@@ -53,16 +43,28 @@ export default function Create() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const generateImage = async () => {
-    if (!validateGenerate()) return;
-
+  const onGenerateHandler = async () => {
     setIsGenerating(true);
+    const formData = new FormData();
+    formData.append("prompt", formDetails.prompt);
+    formData.append("aspectRatio", formDetails.aspectRatio);
+
     try {
-      // Call OpenAI API
-      console.log('Generating image with:', formDetails);
-      // Update formDetails.image with the generated image URL
+      const result = await generateImage(formData);
+      if (result.errors) {
+        setErrors(result.errors);
+      } else if (result.image) {
+        setFormDetails({ ...formDetails, image: result.image });
+        // Clear any previous errors
+        setErrors({});
+      }
+
     } catch (error) {
       console.error('Error generating image:', error);
+      setErrors({
+        ...errors,
+        general: "An unexpected error occurred"
+      });
     } finally {
       setIsGenerating(false);
     }
@@ -97,13 +99,14 @@ export default function Create() {
             formDetails={formDetails}
             errors={errors}
             onFormChange={handleFormChange}
-            onGenerate={generateImage}
+            onGenerate={onGenerateHandler}
           />
         </section>
         <div className="flex flex-col items-center gap-5 mb-20 lg:mb-0">
           <AspectImage
             aspectRatio={formDetails.aspectRatio}
             isGenerating={isGenerating}
+            generatedImage={formDetails.image}
           />
           {formDetails.image && (
             <div className="flex flex-col items-center gap-4 md:flex-row">

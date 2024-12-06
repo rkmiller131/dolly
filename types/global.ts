@@ -16,4 +16,5 @@ export type FormDetails = {
 export type FormErrors = {
   name?: string;
   prompt?: string;
+  general?: string;
 }

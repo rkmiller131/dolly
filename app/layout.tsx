@@ -19,7 +19,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "DOLLY AI",
-  description: "DALL-E Midjourney Clone",
+  description: "A DALLE Midjourney clone, with text-to-image generative AI models developed by OpenAI. Create and download AI art for free, and share your masterpieces with the community.",
 };
 
 export default function RootLayout(

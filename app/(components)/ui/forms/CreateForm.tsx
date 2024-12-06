@@ -73,6 +73,11 @@ export default function CreateForm({ formDetails, errors, onFormChange, onGenera
           size="slim"
         />
       </div>
+      {errors.general &&
+        <span className="self-end text-red-400">
+          {errors.general}
+        </span>
+      }
     </form>
   )
 }

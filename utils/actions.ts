@@ -1,38 +1,61 @@
 "use server";
 
-import { AspectRatio } from "@/types/global";
-import { revalidatePath } from "next/cache";
+import OpenAI from "openai";
+import { z } from "zod";
 
-interface GenerateImageData {
-  name: string;
-  prompt: string;
-  aspectRatio: AspectRatio;
-}
+type ImageGenerationErrors = {
+  prompt?: string;
+  general?: string;
+};
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  project: process.env.OPENAI_PROJECT_ID
+});
+
+const generateImageSchema = z.object({
+  prompt: z.string().min(1, "Please enter a prompt"),
+  aspectRatio: z.enum(["1024x1024", "1792x1024"]).default("1024x1024")
+});
 
 export async function generateImage(formData: FormData) {
-  const name = formData.get("name") as string;
-  const prompt = formData.get("prompt") as string;
-  const aspectRatio = formData.get("aspectRatio") as AspectRatio;
+  const validatedFields = generateImageSchema.safeParse({
+    prompt: formData.get("prompt"),
+    aspectRatio: formData.get("aspectRatio")
+  });
+  console.log('validatedFields ', validatedFields)
 
-  if (!name || !prompt || !aspectRatio) {
-    throw new Error('Missing required fields');
+  if (!validatedFields.success) {
+    const errors: ImageGenerationErrors = {};
+    const fieldErrors = validatedFields.error.flatten().fieldErrors;
+    if (fieldErrors.prompt) {
+      errors.prompt = fieldErrors.prompt[0];
+    }
+    return {
+      errors,
+      image: null
+    };
   }
 
-  const data: GenerateImageData = {
-    name,
-    prompt,
-    aspectRatio
-  };
+  try {
+    const response = await openai.images.generate({
+      model: "dall-e-3",
+      prompt: validatedFields.data.prompt,
+      n: 1,
+      size: validatedFields.data.aspectRatio,
+    });
 
-  // Here you would call your AI image generation service
-  // const image = await yourImageService.generate(data);
-
-  // For now, just log the data
-  console.log('Generating image with data:', data);
-
-  // Revalidate the page to show the new image
-  revalidatePath('/create');
-
-  // Return the data (or generated image URL in production)
-  return data;
+    return {
+      errors: null,
+      image: response.data[0].url
+    };
+  } catch (error) {
+    console.error("Image generation error:", error);
+    return {
+      errors: {
+        general: `Image generation failed - ${error}`
+      },
+      image: null
+    };
+  }
 }
