@@ -2,6 +2,7 @@
 
 import OpenAI from "openai";
 import { z } from "zod";
+import { v2 as cloudinary } from "cloudinary";
 
 type ImageGenerationErrors = {
   prompt?: string;
@@ -11,6 +12,12 @@ type ImageGenerationErrors = {
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   project: process.env.OPENAI_PROJECT_ID
+});
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const generateImageSchema = z.object({
@@ -23,7 +30,6 @@ export async function generateImage(formData: FormData) {
     prompt: formData.get("prompt"),
     aspectRatio: formData.get("aspectRatio")
   });
-  console.log('validatedFields ', validatedFields)
 
   if (!validatedFields.success) {
     const errors: ImageGenerationErrors = {};
@@ -45,9 +51,21 @@ export async function generateImage(formData: FormData) {
       size: validatedFields.data.aspectRatio,
     });
 
+    // Upload to Cloudinary
+    const cloudinaryResponse = await new Promise<string>((resolve, reject) => {
+      cloudinary.uploader.upload(
+        response.data[0].url!,
+        { folder: "ai-generated" },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result!.secure_url);
+        }
+      );
+    });
+
     return {
       errors: null,
-      image: response.data[0].url
+      image: cloudinaryResponse
     };
   } catch (error) {
     console.error("Image generation error:", error);
