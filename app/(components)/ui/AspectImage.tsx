@@ -25,9 +25,11 @@ export default function AspectImage({
   useEffect(() => {
     if (aspectRatio === "1792x1024") {
       setDimensions({ width: 640, height: 360 });
+      // clear generated image url
       setImageToShow("/no-image16-9.webp");
     } else {
       setDimensions({ width: 500, height: 500 });
+      // clear generated image url
       setImageToShow("/no-image1-1.webp");
     }
     if (generatedImage) {

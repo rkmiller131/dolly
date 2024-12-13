@@ -13,7 +13,7 @@ export default function OpenAI () {
         />
       </span>
       <span className="font-primary">
-        2024 - Next/MERN + DALL • E
+        2024 - Next/MERN + DALL-E-3
       </span>
     </div>
   )
