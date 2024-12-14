@@ -32,6 +32,7 @@ export default function CreateForm({ formDetails, errors, onFormChange, onGenera
   const handleAspectRatioChange = (newAspectRatio: AspectRatio) => {
     onFormChange({
       ...formDetails,
+      image: "", // when a new aspect ratio is selected, clear the image
       aspectRatio: newAspectRatio
     });
   };
