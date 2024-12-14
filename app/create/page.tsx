@@ -90,7 +90,7 @@ export default function Create() {
         lg:top-12 lg:w-[75%]`}
       />
       <div className="flex flex-col gap-20 justify-between items-center min-h-[78.5dvh] lg:flex-row lg:gap-20">
-        <section className="flex flex-col gap-10">
+        <section className="flex flex-col gap-10 lg:w-[53%]">
           <HeaderSubtitle
             header="Create"
             subtitle="Generate an imaginative image through DALL•E AI and download or share it with the community."
