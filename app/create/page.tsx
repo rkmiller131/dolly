@@ -111,9 +111,10 @@ export default function Create() {
           {formDetails.image && (
             <div className="flex flex-col items-center gap-4 md:flex-row">
               <IconButton
-                href=""
+                href={formDetails.image}
                 iconPath="/download-icon.svg"
                 text="Download"
+                variant="download"
               />
               <Button
                 text={errors.name ? errors.name : "Share with the community"}
