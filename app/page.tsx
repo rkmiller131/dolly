@@ -6,6 +6,7 @@ import FormField from "./(components)/ui/forms/FormField";
 import dollyImg from "../public/dolly.webp";
 import paperfall1 from "../public/paperfall1.webp";
 import paperfall2 from "../public/paperfall2.webp";
+import ImageMasonryGrid from "./(components)/ui/ImageMasonryGrid";
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(true);
@@ -69,8 +70,8 @@ export default function Home() {
           AI Image Generator
         </h2>
       </section>
-      <div className="grid lg:h-[68vh] overflow-hidden border border-blue-500">
-        Helloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo ooooooooooooooooo oo0000000000000000000000000000000000
+      <div className="lg:h-[68vh] overflow-hidden border border-blue-500">
+        <ImageMasonryGrid />
       </div>
     </div>
   );

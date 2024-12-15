@@ -33,7 +33,6 @@ export default function FormField({
   error
 }: FormFieldProps) {
   const errorBorder = error ? "border-red-400" : "";
-  console.log('error border ', errorBorder)
   const inputClasses = inputVariants({ variant });
   return variant === "area" ? (
     <div className="flex flex-col">
