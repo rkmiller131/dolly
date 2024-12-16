@@ -7,7 +7,7 @@ import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";
 import { AspectRatio, FormDetails, FormErrors } from "@/types/global";
-import { generateImage } from "@/utils/actions";
+import { generateImage, saveGeneratedImage } from "@/utils/actions";
 
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
@@ -32,17 +32,6 @@ export default function Create() {
     setFormDetails(newDetails);
   };
 
-  const validateShare = (): boolean => {
-    const newErrors: FormErrors = {};
-
-    if (!formDetails.name.trim()) {
-      newErrors.name = "Please enter your name first";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const onGenerateHandler = async () => {
     setIsGenerating(true);
     const formData = new FormData();
@@ -58,7 +47,6 @@ export default function Create() {
         // Clear any previous errors
         setErrors({});
       }
-
     } catch (error) {
       console.error('Error generating image:', error);
       setErrors({
@@ -71,11 +59,13 @@ export default function Create() {
   };
 
   const submitToCommunity = async () => {
-    if (!formDetails.image || !validateShare()) return;
+    if (!formDetails.image) return;
 
     try {
-      // Call API to save to db
-      console.log('Submitting to community:', formDetails);
+      const result = await saveGeneratedImage(formDetails);
+      if (result.errors) {
+        setErrors(result.errors);
+      }
     } catch (error) {
       console.error('Error submitting to community:', error);
     }

@@ -3,8 +3,18 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
+import { FormDetails } from "@/types/global";
+import prisma from "@/prisma/prisma";
+import { revalidatePath } from "next/cache";
+import { redirect } from 'next/navigation';
 
 type ImageGenerationErrors = {
+  prompt?: string;
+  general?: string;
+};
+
+type ImageSubmissionErrors = {
+  name?: string;
   prompt?: string;
   general?: string;
 };
@@ -37,10 +47,7 @@ export async function generateImage(formData: FormData) {
     if (fieldErrors.prompt) {
       errors.prompt = fieldErrors.prompt[0];
     }
-    return {
-      errors,
-      image: null
-    };
+    return { errors, image: null };
   }
 
   try {
@@ -76,4 +83,48 @@ export async function generateImage(formData: FormData) {
       image: null
     };
   }
+}
+
+const submitImageSchema = z.object({
+  name: z.string().min(1, "Please enter your name first"),
+  prompt: z.string().min(1, "Prompt required"),
+  image: z.string().min(1, "Image required"),
+  aspectRatio: z.enum(["1024x1024", "1792x1024"]).default("1024x1024")
+});
+
+export async function saveGeneratedImage(formDetails: FormDetails) {
+  const validatedFields = submitImageSchema.safeParse(formDetails);
+
+  if (!validatedFields.success) {
+    const errors: ImageSubmissionErrors = {};
+    const fieldErrors = validatedFields.error.flatten().fieldErrors;
+    if (fieldErrors.prompt) {
+      errors.prompt = fieldErrors.prompt[0];
+    }
+    if (fieldErrors.name) {
+      errors.name = fieldErrors.name[0];
+    }
+    return { errors, image: null };
+  }
+
+  try {
+    await prisma.post.create({
+      data: {
+        name: validatedFields.data.name,
+        prompt: validatedFields.data.prompt,
+        image: validatedFields.data.image,
+        aspectRatio: validatedFields.data.aspectRatio
+      }
+    });
+    revalidatePath('/');
+  } catch (error) {
+    console.error("Image submission error:", error);
+    return {
+      errors: {
+        general: `Image submission failed - ${error instanceof Error ? error.message : 'Unknown error'}`
+      },
+      image: null
+    };
+  }
+  redirect("/");
 }

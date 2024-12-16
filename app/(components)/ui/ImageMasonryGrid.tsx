@@ -22,6 +22,20 @@ const images = [
     aspectRatio: "1024x1024",
     likes: 0
   },
+  {
+    id: 4,
+    name: "Test",
+    image: "https://res.cloudinary.com/dnr41r1lq/image/upload/v1734283251/ai-generated/w8kgmgiwdscqbutadkkt.png",
+    aspectRatio: "1792x1024",
+    likes: 2
+  },
+  {
+    id: 5,
+    name: "Test",
+    image: "https://res.cloudinary.com/dnr41r1lq/image/upload/v1734199274/ai-generated/w39dsya5xzruxtdyipei.png",
+    aspectRatio: "1024x1024",
+    likes: 0
+  },
 ]
 export default function ImageMasonryGrid () {
   const getImageClasses = (aspectRatio: string) => {
@@ -38,12 +52,12 @@ export default function ImageMasonryGrid () {
   return (
     <div
       className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6
-                 gap-1 lg:gap-2 h-full w-full"
+                 gap-1 lg:gap-2"
     >
       {images.map((img) => (
         <div
           key={img.id}
-          className={`relative ${img.aspectRatio === "1024x1024" ? "aspect-square" : "aspect-video"}
+          className={`relative ${img.aspectRatio === "1024x1024" ? "aspect-square" : "aspect-[16.2/8]"}
             ${getImageClasses(img.aspectRatio)}
             overflow-hidden group cursor-pointer`}
         >

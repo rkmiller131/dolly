@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
@@ -15,13 +15,13 @@ export default function Home() {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setIsVisible(!e.target.value);
     if (!e.target.value && dollyRef.current) {
-      dollyRef.current.style.display = 'flex';
+      dollyRef.current.style.display = "flex";
     }
   };
 
   const handleAnimationEnd = (e: React.AnimationEvent<HTMLDivElement>) => {
-    if (e.animationName === 'fade-out') {
-      e.currentTarget.style.display = 'none';
+    if (e.animationName === "fade-out") {
+      e.currentTarget.style.display = "none";
     }
   };
 
