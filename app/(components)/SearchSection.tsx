@@ -5,9 +5,14 @@ import FormField from "./ui/forms/FormField";
 
 interface SearchSectionProps {
   onSearch: (value: string) => void;
+  initialValue: string;
+  isSearching?: boolean;
 }
 
-export default function SearchSection({ onSearch }: SearchSectionProps) {
+export default function SearchSection({
+  onSearch,
+  initialValue,
+}: SearchSectionProps) {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onSearch(e.target.value);
   };
@@ -20,6 +25,7 @@ export default function SearchSection({ onSearch }: SearchSectionProps) {
           placeholder="Search by tag or creator..."
           variant="search"
           onChange={handleInputChange}
+          value={initialValue}
         />
       </search>
       <h2 className="text-2xl self-end md:text-4xl md:self-start">

@@ -1,20 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import Dolly from "./images/Dolly";
 import SearchSection from "./SearchSection";
+import { useSearch } from "./SearchContext";
 
 export default function DollySearchInteraction() {
-  const [isVisible, setIsVisible] = useState(true);
+  const { searchQuery, setSearchQuery, isPending } = useSearch();
 
   const handleSearch = (value: string) => {
-    setIsVisible(!value);
+    setSearchQuery(value);
   };
 
   return (
     <>
-      <Dolly isVisible={isVisible} />
-      <SearchSection onSearch={handleSearch} />
+      <Dolly isVisible={!searchQuery} />
+      <SearchSection
+        onSearch={handleSearch}
+        initialValue={searchQuery}
+        isSearching={isPending}
+      />
     </>
-  )
+  );
 }

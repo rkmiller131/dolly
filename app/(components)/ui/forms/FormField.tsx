@@ -30,7 +30,7 @@ export default function FormField({
   placeholder,
   onChange,
   value,
-  error
+  error,
 }: FormFieldProps) {
   const errorBorder = error ? "border-red-400" : "";
   const inputClasses = inputVariants({ variant });

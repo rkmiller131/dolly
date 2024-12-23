@@ -1,13 +1,23 @@
+import { Suspense } from "react";
 import ImageMasonryGrid from "./(components)/images/ImageMasonryGrid";
 import DollySearchInteraction from "./(components)/DollySearchInteraction";
+import { SearchProvider } from "./(components)/SearchContext";
 
-export default function Home() {
+interface HomeProps {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default function Home({ searchParams }: HomeProps) {
   return (
-    <div className="flex flex-col gap-8">
-      <DollySearchInteraction />
-      <div className="lg:h-[68vh] overflow-hidden border border-blue-500">
-        <ImageMasonryGrid />
+    <SearchProvider>
+      <div className="flex flex-col gap-8">
+        <DollySearchInteraction />
+        <div className="lg:h-[68vh] overflow-hidden border border-blue-500">
+          <Suspense fallback={<div>Loading...</div>}>
+            <ImageMasonryGrid searchParams={searchParams}/>
+          </Suspense>
+        </div>
       </div>
-    </div>
+    </SearchProvider>
   );
 }
