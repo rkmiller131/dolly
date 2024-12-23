@@ -1,7 +1,7 @@
 "use client";
 
 import { ChangeEvent } from "react";
-import FormField from "./ui/forms/FormField";
+import FormField from "./forms/FormField";
 
 interface SearchSectionProps {
   onSearch: (value: string) => void;

@@ -1,8 +1,8 @@
 "use client";
 
 import Dolly from "./images/Dolly";
-import SearchSection from "./SearchSection";
-import { useSearch } from "./SearchContext";
+import SearchSection from "./ui/SearchSection";
+import { useSearch } from "./ui/SearchContext";
 
 export default function DollySearchInteraction() {
   const { searchQuery, setSearchQuery, isPending } = useSearch();

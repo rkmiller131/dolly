@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import ImageMasonryGrid from "./(components)/images/ImageMasonryGrid";
 import DollySearchInteraction from "./(components)/DollySearchInteraction";
-import { SearchProvider } from "./(components)/SearchContext";
+import { SearchProvider } from "./(components)/ui/SearchContext";
 
 interface HomeProps {
   searchParams: { [key: string]: string | string[] | undefined };
