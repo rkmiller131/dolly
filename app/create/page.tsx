@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import CreateForm from "../(components)/ui/forms/CreateForm";
-import AspectImage from "../(components)/ui/AspectImage";
+import AspectImage from "../(components)/images/AspectImage";
 import Button from "../(components)/ui/buttons/Button";
 import IconButton from "../(components)/ui/buttons/IconButton";
 import HeaderSubtitle from "../(components)/HeaderSubtitle";

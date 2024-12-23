@@ -128,3 +128,31 @@ export async function saveGeneratedImage(formDetails: FormDetails) {
   }
   redirect("/");
 }
+
+// future: add try catch block here
+export async function getImages(textFilter?: string) {
+  if (!textFilter) {
+    return await prisma.post.findMany({
+      orderBy: [
+        { likes: "desc" },
+        { createdAt: "desc" }
+      ],
+      take: 20
+    });
+  }
+
+  const images = await prisma.post.findMany({
+    where: {
+      OR: [
+        { name: { contains: textFilter } },
+        { prompt: { contains: textFilter } }
+      ]
+    },
+    orderBy: [
+      { likes: "desc" },
+      { createdAt: "desc" }
+    ],
+    take: 20
+  });
+  return images;
+}

@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import Link from "next/link";
 import Button from "../../ui/buttons/Button";
 import { usePathname } from "next/navigation";
