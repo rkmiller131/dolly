@@ -161,3 +161,20 @@ export async function getImages(textFilter?: string) {
     throw new Error("Unable to fetch images.");
   }
 }
+
+export async function likeImage(id: string, change: number) {
+  try {
+    await prisma.post.update({
+      where: { id },
+      data: {
+        likes: {
+          increment: change
+        }
+      }
+    });
+  } catch (error) {
+    console.error("Error liking image:", error);
+    throw new Error("Unable to like image.");
+  }
+  revalidatePath('/');
+}

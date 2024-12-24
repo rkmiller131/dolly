@@ -1,6 +1,7 @@
 "use client";
 
 import { ImagePost } from "@/types/global";
+import { likeImage } from "@/utils/actions";
 import { useState } from "react";
 
 interface ImageLikesProps {
@@ -11,7 +12,11 @@ export default function ImageLikes({ img }: ImageLikesProps) {
   const [clicked, setClicked] = useState(false);
   const handleClick = () => {
     setClicked(!clicked);
-    console.log('clicked')
+    if (clicked) {
+      likeImage(img.id, -1);
+    } else {
+      likeImage(img.id, 1);
+    }
   }
   return (
     <button
