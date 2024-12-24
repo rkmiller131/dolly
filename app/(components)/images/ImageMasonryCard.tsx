@@ -1,6 +1,13 @@
 import Image from "next/image";
+import ImageLikes from "../ui/buttons/ImageLikes";
 
-export default function ImageMasonryCard({img}) {
+import { ImagePost } from "@/types/global";
+
+interface ImageMasonryCardProps {
+  img: ImagePost;
+}
+
+export default function ImageMasonryCard({ img }: ImageMasonryCardProps) {
   const trimmedPrompt = img.prompt.length > 100 ? img.prompt.slice(0, 100) + "..." : img.prompt;
   return (
     <div
@@ -29,14 +36,7 @@ export default function ImageMasonryCard({img}) {
           {trimmedPrompt}
         </div>
       </div>
-      <div
-        className={`
-          absolute top-2 right-2 z-[-1] px-2 py-1 text-xs text-white
-          bg-black/50 rounded-full
-        `}
-      >
-        {img.likes} ♥
-      </div>
+      <ImageLikes img={img}/>
     </div>
   );
 }

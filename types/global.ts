@@ -18,3 +18,14 @@ export type FormErrors = {
   prompt?: string;
   general?: string;
 }
+
+export type ImagePost = {
+  id: string;
+  name: string;
+  prompt: string;
+  image: string;
+  aspectRatio: AspectRatio;
+  likes: number;
+  createdAt: string;
+  updatedAt: string;
+}

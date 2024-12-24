@@ -23,10 +23,10 @@ export default function Dolly({ isVisible }: DollyProps) {
   };
 
   return (
-    <div className="hidden fixed z-2 lg:flex self-center min-h-[87dvh] mt-[-8%]">
+    <div className="hidden fixed z-[5] lg:flex self-center min-h-[87dvh] w-auto mt-[-8%] pointer-events-none">
       <div
         ref={dollyRef}
-        className={`relative ${isVisible ? 'animate-fade-in' : 'animate-fade-out pointer-events-all'}`}
+        className={`relative ${isVisible ? 'animate-fade-in' : 'animate-fade-out'}`}
         onAnimationEnd={handleAnimationEnd}
       >
         <Image
@@ -34,7 +34,7 @@ export default function Dolly({ isVisible }: DollyProps) {
           height={1100}
           width={600}
           alt="Dolly Character"
-          priority
+          // priority
           className="animate-float-3"
         />
         <Image
