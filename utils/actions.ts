@@ -137,7 +137,7 @@ export async function getImages(textFilter?: string) {
           { likes: "desc" },
           { createdAt: "desc" },
         ],
-        take: 20,
+        take: 30,
       });
     }
 
@@ -152,7 +152,7 @@ export async function getImages(textFilter?: string) {
         { likes: "desc" },
         { createdAt: "desc" },
       ],
-      take: 20,
+      take: 200
     });
 
     return images;

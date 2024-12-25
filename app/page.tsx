@@ -12,7 +12,7 @@ export default function Home({ searchParams }: HomeProps) {
     <SearchProvider>
       <div className="flex flex-col gap-8">
         <DollySearchInteraction />
-        <div className="lg:h-[68vh] overflow-hidden border border-blue-500">
+        <div className="lg:h-[68vh] overflow-hidden">
           <Suspense fallback={<div>Loading...</div>}>
             <ImageMasonryGrid searchParams={searchParams}/>
           </Suspense>

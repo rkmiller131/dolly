@@ -68,7 +68,6 @@ export default function CreateForm({ formDetails, errors, onFormChange, onGenera
         />
         <Button
           text="Generate"
-          // interaction={{ type: "server-action", action: generateImage }}
           interaction={{ type: "action", onClick: onGenerate }}
           color="accent"
           size="slim"

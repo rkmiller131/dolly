@@ -22,7 +22,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
 
   const setSearchQuery = (query: string) => {
     setSearchQueryState(query);
-    startTransition(() => {
+    startTransition(() => { // in React 19, startTransition will automatically set isPending to true
       // Update URL with search query "q" parameter
       const params = new URLSearchParams(searchParams);
       if (query) {
