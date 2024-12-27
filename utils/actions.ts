@@ -166,9 +166,9 @@ export async function getImages(textFilter?: string): Promise<ImagePost[]> {
           { prompt: { contains: textFilter, mode: 'insensitive' } }
         ]
       } : undefined
-    } satisfies Prisma.PostFindManyArgs;
+    }
 
-    const dbImages = await prisma.post.findMany(baseQuery);
+    const dbImages = await prisma.post.findMany(baseQuery as Prisma.PostFindManyArgs);
 
     const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
 
