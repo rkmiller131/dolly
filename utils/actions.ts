@@ -7,8 +7,6 @@ import { DBImage, FormDetails, ImagePost } from "@/types/global";
 import prisma from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
-// import { Prisma } from "@prisma/client";
-export const maxDuration = 60;
 
 type ImageGenerationErrors = {
   prompt?: string;
@@ -131,17 +129,6 @@ export async function saveGeneratedImage(formDetails: FormDetails) {
   redirect("/");
 }
 
-// const dbImageSchema = z.object({
-//   id: z.string(),
-//   name: z.string(),
-//   prompt: z.string(),
-//   image: z.string(),
-//   aspectRatio: z.string(),
-//   likes: z.number(),
-//   createdAt: z.date(),
-//   updatedAt: z.date(),
-// });
-
 const imagePostSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -168,10 +155,6 @@ export async function getImages(textFilter?: string): Promise<ImagePost[]> {
         ]
       } : undefined
     })
-
-    // const dbImages = await prisma.post.findMany(baseQuery as Prisma.PostFindManyArgs);
-
-    // const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
 
     return dbImages.map((img: DBImage) => imagePostSchema.parse({
       ...img,
