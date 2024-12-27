@@ -29,3 +29,14 @@ export type ImagePost = {
   createdAt: string;
   updatedAt: string;
 }
+
+export type DBImage = {
+  id: string;
+  name: string;
+  prompt: string;
+  image: string;
+  aspectRatio: string;
+  likes: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

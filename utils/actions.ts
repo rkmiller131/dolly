@@ -3,7 +3,7 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
-import { FormDetails, ImagePost } from "@/types/global";
+import { DBImage, FormDetails, ImagePost } from "@/types/global";
 import prisma from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
@@ -172,7 +172,7 @@ export async function getImages(textFilter?: string): Promise<ImagePost[]> {
 
     // const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
 
-    return dbImages.map(img => imagePostSchema.parse({
+    return dbImages.map((img: DBImage) => imagePostSchema.parse({
       ...img,
       createdAt: img.createdAt.toISOString(),
       updatedAt: img.updatedAt.toISOString(),
