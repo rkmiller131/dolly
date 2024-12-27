@@ -7,7 +7,7 @@ import { FormDetails, ImagePost } from "@/types/global";
 import prisma from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
-import { Prisma } from "@prisma/client";
+// import { Prisma } from "@prisma/client";
 
 type ImageGenerationErrors = {
   prompt?: string;
@@ -130,16 +130,16 @@ export async function saveGeneratedImage(formDetails: FormDetails) {
   redirect("/");
 }
 
-const dbImageSchema = z.object({
-  id: z.string(),
-  name: z.string(),
-  prompt: z.string(),
-  image: z.string(),
-  aspectRatio: z.string(),
-  likes: z.number(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
-});
+// const dbImageSchema = z.object({
+//   id: z.string(),
+//   name: z.string(),
+//   prompt: z.string(),
+//   image: z.string(),
+//   aspectRatio: z.string(),
+//   likes: z.number(),
+//   createdAt: z.date(),
+//   updatedAt: z.date(),
+// });
 
 const imagePostSchema = z.object({
   id: z.string(),
@@ -154,7 +154,7 @@ const imagePostSchema = z.object({
 
 export async function getImages(textFilter?: string): Promise<ImagePost[]> {
   try {
-    const baseQuery = {
+    const dbImages = await prisma.post.findMany({
       orderBy: [
         { likes: 'desc' as const },
         { createdAt: 'desc' as const }
@@ -166,13 +166,13 @@ export async function getImages(textFilter?: string): Promise<ImagePost[]> {
           { prompt: { contains: textFilter, mode: 'insensitive' } }
         ]
       } : undefined
-    }
+    })
 
-    const dbImages = await prisma.post.findMany(baseQuery as Prisma.PostFindManyArgs);
+    // const dbImages = await prisma.post.findMany(baseQuery as Prisma.PostFindManyArgs);
 
-    const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
+    // const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
 
-    return validatedDbImages.map(img => imagePostSchema.parse({
+    return dbImages.map(img => imagePostSchema.parse({
       ...img,
       createdAt: img.createdAt.toISOString(),
       updatedAt: img.updatedAt.toISOString(),
