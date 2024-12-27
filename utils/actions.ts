@@ -154,32 +154,29 @@ const imagePostSchema = z.object({
 
 export async function getImages(textFilter?: string): Promise<ImagePost[]> {
   try {
-    const baseQuery: Prisma.PostFindManyArgs = {
+    const baseQuery = {
       orderBy: [
-        { likes: "desc" },
-        { createdAt: "desc" },
+        { likes: 'desc' as const },
+        { createdAt: 'desc' as const }
       ],
       take: textFilter ? 200 : 30,
-    };
-
-    if (textFilter) {
-      baseQuery.where = {
+      where: textFilter ? {
         OR: [
           {
             name: {
               contains: textFilter,
-              mode: "insensitive" as Prisma.QueryMode,
-            },
+              mode: 'insensitive' as Prisma.QueryMode
+            }
           },
           {
             prompt: {
               contains: textFilter,
-              mode: "insensitive" as Prisma.QueryMode,
-            },
-          },
-        ],
-      };
-    }
+              mode: 'insensitive' as Prisma.QueryMode
+            }
+          }
+        ]
+      } : undefined
+    } satisfies Prisma.PostFindManyArgs;
 
     const dbImages = await prisma.post.findMany(baseQuery);
 
