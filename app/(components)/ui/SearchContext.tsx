@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useTransition } from "react";
+import { createContext, useContext, useState, useTransition, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 interface SearchContextType {
@@ -11,7 +11,7 @@ interface SearchContextType {
 
 const SearchContext = createContext<SearchContextType | undefined>(undefined);
 
-export function SearchProvider({ children }: { children: React.ReactNode }) {
+function SearchProviderInner({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
@@ -22,8 +22,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
 
   const setSearchQuery = (query: string) => {
     setSearchQueryState(query);
-    startTransition(() => { // in React 19, startTransition will automatically set isPending to true
-      // Update URL with search query "q" parameter
+    startTransition(() => {
       const params = new URLSearchParams(searchParams);
       if (query) {
         params.set("q", query);
@@ -31,7 +30,7 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
         params.delete("q");
       }
       router.push(`?${params.toString()}`, { scroll: false });
-      router.refresh(); // This triggers a server component rerender
+      router.refresh();
     });
   };
 
@@ -39,6 +38,14 @@ export function SearchProvider({ children }: { children: React.ReactNode }) {
     <SearchContext.Provider value={{ searchQuery, setSearchQuery, isPending }}>
       {children}
     </SearchContext.Provider>
+  );
+}
+
+export function SearchProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <Suspense>
+      <SearchProviderInner>{children}</SearchProviderInner>
+    </Suspense>
   );
 }
 

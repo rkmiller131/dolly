@@ -3,10 +3,11 @@
 import OpenAI from "openai";
 import { z } from "zod";
 import { v2 as cloudinary } from "cloudinary";
-import { FormDetails } from "@/types/global";
+import { FormDetails, ImagePost } from "@/types/global";
 import prisma from "@/prisma/prisma";
 import { revalidatePath } from "next/cache";
 import { redirect } from 'next/navigation';
+import { Prisma } from "@prisma/client";
 
 type ImageGenerationErrors = {
   prompt?: string;
@@ -129,33 +130,68 @@ export async function saveGeneratedImage(formDetails: FormDetails) {
   redirect("/");
 }
 
-export async function getImages(textFilter?: string) {
-  try {
-    if (!textFilter) {
-      return await prisma.post.findMany({
-        orderBy: [
-          { likes: "desc" },
-          { createdAt: "desc" },
-        ],
-        take: 30,
-      });
-    }
+const dbImageSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  prompt: z.string(),
+  image: z.string(),
+  aspectRatio: z.string(),
+  likes: z.number(),
+  createdAt: z.date(),
+  updatedAt: z.date(),
+});
 
-    const images = await prisma.post.findMany({
-      where: {
-        OR: [
-          { name: { contains: textFilter, mode: "insensitive" } },
-          { prompt: { contains: textFilter, mode: "insensitive" } },
-        ],
-      },
+const imagePostSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  prompt: z.string(),
+  image: z.string(),
+  aspectRatio: z.enum(["1024x1024", "1792x1024"]),
+  likes: z.number(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
+export async function getImages(textFilter?: string): Promise<ImagePost[]> {
+  try {
+    const baseQuery: Prisma.PostFindManyArgs = {
       orderBy: [
         { likes: "desc" },
         { createdAt: "desc" },
       ],
-      take: 200
-    });
+      take: textFilter ? 200 : 30,
+    };
 
-    return images;
+    if (textFilter) {
+      baseQuery.where = {
+        OR: [
+          {
+            name: {
+              contains: textFilter,
+              mode: "insensitive" as Prisma.QueryMode,
+            },
+          },
+          {
+            prompt: {
+              contains: textFilter,
+              mode: "insensitive" as Prisma.QueryMode,
+            },
+          },
+        ],
+      };
+    }
+
+    const dbImages = await prisma.post.findMany(baseQuery);
+
+    const validatedDbImages = dbImages.map(img => dbImageSchema.parse(img));
+
+    return validatedDbImages.map(img => imagePostSchema.parse({
+      ...img,
+      createdAt: img.createdAt.toISOString(),
+      updatedAt: img.updatedAt.toISOString(),
+      aspectRatio: img.aspectRatio === "1792x1024" ? "1792x1024" : "1024x1024"
+    }));
+
   } catch (error) {
     console.error("Error fetching images:", error);
     throw new Error("Unable to fetch images.");

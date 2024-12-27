@@ -3,11 +3,11 @@ import ImageMasonryGrid from "./(components)/images/ImageMasonryGrid";
 import DollySearchInteraction from "./(components)/DollySearchInteraction";
 import { SearchProvider } from "./(components)/ui/SearchContext";
 
-interface HomeProps {
-  searchParams: { [key: string]: string | string[] | undefined };
+interface PageProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }
 
-export default function Home({ searchParams }: HomeProps) {
+export default function Home({ searchParams }: PageProps) {
   return (
     <SearchProvider>
       <div className="flex flex-col gap-8">
