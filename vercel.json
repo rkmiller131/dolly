@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "utils/actions.ts": {
-      "maxDuration": 60
-    }
-  }
-}
