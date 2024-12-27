@@ -162,18 +162,8 @@ export async function getImages(textFilter?: string): Promise<ImagePost[]> {
       take: textFilter ? 200 : 30,
       where: textFilter ? {
         OR: [
-          {
-            name: {
-              contains: textFilter,
-              mode: 'insensitive' as Prisma.QueryMode
-            }
-          },
-          {
-            prompt: {
-              contains: textFilter,
-              mode: 'insensitive' as Prisma.QueryMode
-            }
-          }
+          { name: { contains: textFilter, mode: 'insensitive' } },
+          { prompt: { contains: textFilter, mode: 'insensitive' } }
         ]
       } : undefined
     } satisfies Prisma.PostFindManyArgs;
