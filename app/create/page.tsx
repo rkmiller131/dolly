@@ -9,6 +9,8 @@ import HeaderSubtitle from "../(components)/HeaderSubtitle";
 import { AspectRatio, FormDetails, FormErrors } from "@/types/global";
 import { generateImage, saveGeneratedImage } from "@/utils/actions";
 
+export const maxDuration = 30;
+
 export default function Create() {
   const [formDetails, setFormDetails] = useState<FormDetails>({
     name: "",
