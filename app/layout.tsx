@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Jaldi } from "next/font/google";
 import { Footer, Navbar } from "./(components)/layout";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout(
         <Navbar />
         <main className="container mx-auto px-5 py-5 lg:px-0">
           {children}
+          <SpeedInsights />
         </main>
         <Footer />
       </body>
