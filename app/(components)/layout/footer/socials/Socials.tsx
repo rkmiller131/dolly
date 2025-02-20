@@ -13,7 +13,7 @@ export default function Socials () {
         <LinkedInIcon />
       </Link>
       <Link
-        href="https://github.com/rkmiller131"
+        href="https://github.com/rkmiller131/dolly"
         target="_blank"
         rel="noopener noreferrer"
       >
